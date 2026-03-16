@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     }
 
     await resend.emails.send({
-      from: "Fotomatik web <onboarding@resend.dev>",
+      from: "Fotomatik <noreply@fotomatik.cz>",
       to: "tomas@loutocky.com",
       replyTo: email,
       subject: `Nová poptávka: ${name} – ${date}`,
