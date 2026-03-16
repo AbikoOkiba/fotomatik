@@ -2,43 +2,60 @@
 
 ## O projektu
 Web pro pronájem fotokoutku Fotomatik.cz – majitel Tomáš Loutocký (tomas@loutocky.com, +420 603 837 432).
-Působnost: Olomoucký kraj a okolí (Olomouc, Prostějov, Šumperk, celá Morava).
+Působnost: Olomoucký kraj a okolí (Olomouc, Prostějov, Šumperk, celá Morava). Po domluvě kamkoliv.
 
 ## Stack
 - **Next.js 16** (App Router, TypeScript)
 - **Tailwind CSS v4**
 - **shadcn/ui** komponenty
 - **Cloudinary** – fotky a videa
+- **Resend** – odesílání emailů z kontaktního formuláře
 - **lucide-react** – ikony
 
 ## Struktura projektu
 ```
 app/
-  page.tsx          – hlavní stránka (skládá sekce)
-  layout.tsx        – root layout
-  globals.css       – CSS proměnné (barvy, fonty)
+  page.tsx               – hlavní stránka (skládá sekce)
+  layout.tsx             – root layout + metadata + JSON-LD
+  globals.css            – CSS proměnné (barvy, fonty)
+  icon.svg               – favicon (černý čtverec, bílé F)
+  opengraph-image.tsx    – OG obrázek 1200×630 generovaný dynamicky
+  sitemap.ts             – automatický /sitemap.xml
+  robots.ts              – /robots.txt
   api/
-    gallery/route.ts  – API pro načtení fotek z Cloudinary
-    videos/route.ts   – API pro načtení videí z Cloudinary
+    gallery/route.ts     – API pro načtení fotek z Cloudinary
+    videos/route.ts      – API pro načtení videí z Cloudinary
+    contact/route.ts     – API pro odeslání kontaktního formuláře přes Resend
 components/
   sections/
-    header.tsx        – navigace + Rezervovat → #contact
-    hero.tsx          – hero sekce s videem v pozadí, 2 tlačítka
-    features.tsx      – id="features", 4 karty výhod
-    gallery.tsx       – id="gallery", dynamická galerie z Cloudinary API
-    how-it-works.tsx  – id="process", 3 kroky
-    video-section.tsx – videa z Cloudinary API
-    contact.tsx       – id="contact", formulář + kontaktní info
-    footer.tsx        – logo + Facebook + copyright
-  ui/               – shadcn komponenty (button, input, select, textarea...)
+    header.tsx           – navigace + Rezervovat → #contact
+    hero.tsx             – hero sekce s videem v pozadí (Fotomatik/Hero_video), 2 tlačítka
+    features.tsx         – id="features", 4 karty výhod
+    gallery.tsx          – id="gallery", dynamická galerie z Cloudinary API
+    how-it-works.tsx     – id="process", 3 kroky
+    video-section.tsx    – id="videos", videa z Cloudinary API s vlastními náhledy
+    contact.tsx          – id="contact", formulář + kontaktní info
+    footer.tsx           – logo + Facebook + copyright
+  ui/                    – shadcn komponenty (button, input, select, textarea...)
 ```
 
 ## Cloudinary
 - **Cloud name:** dfelxxl7t
-- **Složka fotek:** Fotomatik/Foto (28 fotek)
-- **Složka videí:** Fotomatik/Videa
+- **Složka fotek:** Fotomatik/Foto (33 fotek)
+- **Složka videí:** Fotomatik/Videa (2 videa)
+- **Hero video:** Fotomatik/Hero_video (1 video – běží v smyčce jako pozadí hero sekce)
 - API Key a Secret jsou v `.env.local` (není v gitu)
+- Cloudinary používá **nový Dynamic Folders systém** – galerie se načítá přes `resources_by_asset_folder` (ne klasický folders endpoint)
 - Galerie se načítá dynamicky přes `/api/gallery` – přidání/odebrání fotky na Cloudinary se automaticky projeví na webu
+- Video náhledy generuje Cloudinary s parametrem `so_X` (start offset v sekundách)
+  - Video 1: offset 32s
+  - Video 2: offset 47s, crop fill (bylo vertikální, ořezáno na 16:9)
+
+## Resend (kontaktní formulář)
+- Registrován účet, API klíč v `.env.local` jako `RESEND_API_KEY`
+- Emaily chodí na tomas@loutocky.com
+- Odesílatel: onboarding@resend.dev (dokud není ověřená doména fotomatik.cz)
+- Po ověření domény změnit na noreply@fotomatik.cz
 
 ## Barvy (globals.css)
 - **Primary (zelená):** oklch(0.45 0.12 145) ≈ #2e7d4f
@@ -52,21 +69,53 @@ components/
 - `#process` → Jak to funguje
 - `#contact` → Kontakt (Rezervovat tlačítko)
 
-## Co bylo opraveno / přidáno
+## SEO
+- JSON-LD LocalBusiness v layout.tsx (adresa, geo souřadnice, areaServed)
+- OG image: `app/opengraph-image.tsx` (zelené pozadí, zlatý text, lokace)
+- Sitemap: `app/sitemap.ts` → `/sitemap.xml`
+- Robots: `app/robots.ts` → `/robots.txt`
+- Favicon: `app/icon.svg` (černý čtverec, bílé F)
+- TODO: Google Search Console – přidat web a odeslat sitemap po nasazení
+
+## GitHub
+- Repozitář: https://github.com/AbikoOkiba/fotomatik
+- Branch: main
+- `.env.local` je v `.gitignore` – API klíče nejsou v gitu
+- Po každé změně: `git add .` → `git commit -m "popis"` → `git push`
+
+## Vercel (nasazení)
+- Propojeno s GitHub repozitářem AbikoOkiba/fotomatik
+- Environment Variables které musí být nastaveny ve Vercelu:
+  - `CLOUDINARY_CLOUD_NAME` = dfelxxl7t
+  - `CLOUDINARY_API_KEY` = (viz .env.local)
+  - `CLOUDINARY_API_SECRET` = (viz .env.local)
+  - `RESEND_API_KEY` = (viz .env.local)
+- TODO: Vyřešit build error (TypeScript chyba – viz logy)
+- TODO: Přidat custom doménu fotomatik.cz v Settings → Domains
+
+## Co bylo opraveno / přidáno (kompletní přehled)
 - [x] Chybějící `select.tsx` a `textarea.tsx` shadcn komponenty
 - [x] Anchor `id` na všech sekcích
 - [x] Tlačítko "Rezervovat" v headeru → odkaz na #contact
 - [x] Hero tlačítka → #contact a #gallery
-- [x] Dynamická galerie přes Cloudinary API (místo hardcoded URL)
+- [x] Druhé tlačítko v hero sekci – opravena čitelnost (bílý text na světlém)
+- [x] Dynamická galerie přes Cloudinary API (Dynamic Folders systém)
 - [x] Dynamická videa přes Cloudinary API
-- [x] `cloudinary` přidán do package.json
+- [x] Hero sekce – pozadí nahrazeno videem z Cloudinary (Fotomatik/Hero_video)
+- [x] Video náhledy – vlastní timestamp (32s / 47s), druhé video crop fill
+- [x] Skrytí filename pod video náhledy
+- [x] Kontaktní formulář napojený na Resend → email na tomas@loutocky.com
+- [x] Favicon – černý čtverec s bílým F (app/icon.svg)
+- [x] SEO – sitemap, robots.txt, OG image, JSON-LD s adresou a geo
+- [x] GitHub repozitář – kód pushnut
+- [x] Vercel – projekt importován (build error čeká na opravu)
 
-## Co zbývá / nápady do budoucna
-- [ ] Otestovat Cloudinary API připojení na localhost
-- [ ] Nasazení na Vercel (přidat env variables: CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET)
-- [ ] Kontaktní formulář – napojit na skutečné odesílání (email / Resend / Formspree)
-- [ ] SEO metadata (title, description, OG obrázky)
-- [ ] Google Analytics nebo podobné
+## Co zbývá
+- [ ] Opravit Vercel build error (TypeScript)
+- [ ] Nastavit custom doménu fotomatik.cz na Vercelu
+- [ ] Ověřit doménu na Resend → změnit odesílatele na noreply@fotomatik.cz
+- [ ] Google Search Console – odeslat sitemap
+- [ ] Google Analytics nebo Vercel Analytics
 
 ## Jak spustit lokálně
 ```bash
@@ -76,7 +125,16 @@ npm run dev
 # → http://localhost:3000
 ```
 
+## .env.local (šablona – hodnoty nezveřejňovat)
+```
+CLOUDINARY_CLOUD_NAME=dfelxxl7t
+CLOUDINARY_API_KEY=...
+CLOUDINARY_API_SECRET=...
+RESEND_API_KEY=...
+```
+
 ## Důležité soubory k načtení na začátku session
 1. `CLAUDE_NOTES.md` – tento soubor
 2. `app/page.tsx` – struktura stránky
 3. `app/globals.css` – design tokens
+4. `app/layout.tsx` – metadata a JSON-LD
