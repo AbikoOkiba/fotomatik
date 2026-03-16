@@ -54,8 +54,8 @@ components/
 ## Resend (kontaktní formulář)
 - Registrován účet, API klíč v `.env.local` jako `RESEND_API_KEY`
 - Emaily chodí na tomas@loutocky.com
-- Odesílatel: onboarding@resend.dev (dokud není ověřená doména fotomatik.cz)
-- Po ověření domény změnit na noreply@fotomatik.cz
+- Odesílatel: `Fotomatik <noreply@fotomatik.cz>` ✅ (doména ověřena 16.3.2026)
+- replyTo je nastaven na email odesílatele – stačí kliknout Odpovědět
 
 ## Barvy (globals.css)
 - **Primary (zelená):** oklch(0.45 0.12 145) ≈ #2e7d4f
@@ -85,13 +85,22 @@ components/
 
 ## Vercel (nasazení)
 - Propojeno s GitHub repozitářem AbikoOkiba/fotomatik
-- Environment Variables které musí být nastaveny ve Vercelu:
+- URL: fotomatik-gp1m.vercel.app (interní), fotomatik.cz (produkce)
+- Environment Variables nastaveny ve Vercelu:
   - `CLOUDINARY_CLOUD_NAME` = dfelxxl7t
   - `CLOUDINARY_API_KEY` = (viz .env.local)
   - `CLOUDINARY_API_SECRET` = (viz .env.local)
   - `RESEND_API_KEY` = (viz .env.local)
-- TODO: Vyřešit build error (TypeScript chyba – viz logy)
-- TODO: Přidat custom doménu fotomatik.cz v Settings → Domains
+- Doména fotomatik.cz a www.fotomatik.cz připojeny a funkční ✅
+- DNS na Active24 – A záznamy pro Vercel, CNAME pro www
+
+## Active24 DNS (aktuální stav)
+- `fotomatik.cz` A → Vercel IP (nastaveno dle Vercelu)
+- `www.fotomatik.cz` A → Vercel IP (nastaveno dle Vercelu)
+- `resend._domainkey` TXT → DKIM klíč pro Resend ✅
+- `send` MX → feedback-smtp.eu-west-1.amazonses.com (priorita 10) ✅
+- `send` TXT → v=spf1 include:amazonses.com ~all ✅
+- `_dmarc` TXT → v=DMARC1; p=none; ✅
 
 ## Co bylo opraveno / přidáno (kompletní přehled)
 - [x] Chybějící `select.tsx` a `textarea.tsx` shadcn komponenty
@@ -108,13 +117,13 @@ components/
 - [x] Favicon – černý čtverec s bílým F (app/icon.svg)
 - [x] SEO – sitemap, robots.txt, OG image, JSON-LD s adresou a geo
 - [x] GitHub repozitář – kód pushnut
-- [x] Vercel – projekt importován (build error čeká na opravu)
+- [x] Vercel build error opraven (chybějící separator.tsx, toast.tsx, implicit any)
+- [x] Vercel – web live na fotomatik.cz ✅
+- [x] Doména fotomatik.cz napojena přes Active24 DNS
+- [x] Resend doména ověřena – emaily z noreply@fotomatik.cz ✅
 
 ## Co zbývá
-- [ ] Opravit Vercel build error (TypeScript)
-- [ ] Nastavit custom doménu fotomatik.cz na Vercelu
-- [ ] Ověřit doménu na Resend → změnit odesílatele na noreply@fotomatik.cz
-- [ ] Google Search Console – odeslat sitemap
+- [ ] Google Search Console – přidat web a odeslat sitemap.xml
 - [ ] Google Analytics nebo Vercel Analytics
 
 ## Jak spustit lokálně
