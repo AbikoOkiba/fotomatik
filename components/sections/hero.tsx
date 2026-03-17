@@ -39,7 +39,7 @@ export function HeroSection() {
         </div>
 
         {/* Large FOTOMATIK text */}
-        <h1 className="font-serif text-6xl md:text-8xl lg:text-9xl font-bold text-white mb-4 tracking-wider drop-shadow-lg">
+        <h1 className="font-serif text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-bold text-white mb-4 tracking-wide drop-shadow-lg">
           FOTOMATIK
         </h1>
         
