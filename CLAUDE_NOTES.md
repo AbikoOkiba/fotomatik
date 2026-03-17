@@ -75,7 +75,7 @@ components/
 - Sitemap: `app/sitemap.ts` → `/sitemap.xml`
 - Robots: `app/robots.ts` → `/robots.txt`
 - Favicon: `app/icon.svg` (černý čtverec, bílé F)
-- TODO: Google Search Console – přidat web a odeslat sitemap po nasazení
+- Google Search Console: fotomatik.cz ověřeno ✅, sitemap.xml odeslán ✅
 
 ## GitHub
 - Repozitář: https://github.com/AbikoOkiba/fotomatik
@@ -121,10 +121,13 @@ components/
 - [x] Vercel – web live na fotomatik.cz ✅
 - [x] Doména fotomatik.cz napojena přes Active24 DNS
 - [x] Resend doména ověřena – emaily z noreply@fotomatik.cz ✅
+- [x] Google Search Console – fotomatik.cz ověřeno, sitemap.xml odeslán ✅
+- [x] Vercel Analytics – nainstalován @vercel/analytics, komponenta přidána do layout.tsx ✅
+- [x] Kontakt – přidán text "Po domluvě za vámi rádi přijedeme kamkoliv."
+- [x] Hero nadpis – opraven ořez na mobilech (text-5xl na malých obrazovkách)
 
 ## Co zbývá
-- [ ] Google Search Console – přidat web a odeslat sitemap.xml
-- [ ] Google Analytics nebo Vercel Analytics
+- [ ] Případně Speed Insights (Vercel) – volitelné, podobné jako Analytics
 
 ## Jak spustit lokálně
 ```bash
