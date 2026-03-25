@@ -100,7 +100,7 @@ export function ContactSection() {
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">Působnost</p>
                   <p className="text-lg font-medium text-foreground">Olomoucký kraj a okolí</p>
-                  <p className="text-sm text-muted-foreground">Olomouc, Prostějov, Šumperk a celá Morava</p>
+                  <p className="text-sm text-muted-foreground">Olomouc, Prostějov, Šumperk, Ostrava, Brno a celá Morava</p>
                   <p className="text-sm text-muted-foreground">Po domluvě za vámi rádi přijedeme kamkoliv.</p>
                 </div>
               </div>
