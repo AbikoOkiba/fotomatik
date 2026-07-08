@@ -39,18 +39,19 @@ export function HeroSection() {
         </div>
 
         {/* Large FOTOMATIK text */}
-        <h1 className="font-serif text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-bold text-white mb-4 tracking-wide drop-shadow-lg">
-          FOTOMATIK
+        <h1 className="mb-6">
+          <span className="block font-serif text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-bold text-white mb-4 tracking-wide drop-shadow-lg">
+            FOTOMATIK
+          </span>
+          <span className="block text-2xl md:text-3xl lg:text-4xl font-light text-white/90">
+            Fotokoutek na svatby a firemní večírky
+          </span>
         </h1>
-        
-        <p className="text-2xl md:text-3xl lg:text-4xl font-light text-white/90 mb-6">
-          Zábava, kterou si odnesete domů
-        </p>
-        
+
         <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-10 leading-relaxed text-pretty">
-          Profesionální fotokoutek pro vaše svatby, večírky a oslavy. 
-          Nasaďte paruku, vezměte knírek a my se postaráme o dokonalou fotku 
-          s okamžitým tiskem.
+          Zábava, kterou si odnesete domů. Nasaďte paruku, vezměte knírek
+          a my se postaráme o dokonalou fotku s okamžitým tiskem.
+          Olomouc, Prostějov, Přerov a celá Morava.
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center pb-16 md:pb-20">

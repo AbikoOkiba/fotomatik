@@ -32,6 +32,8 @@ components/
     header.tsx           – navigace + Rezervovat → #contact
     hero.tsx             – hero sekce s videem v pozadí (Fotomatik/Hero_video), 2 tlačítka
     features.tsx         – id="features", 4 karty výhod
+    corporate.tsx        – id="firemni-vecirky", B2B sekce (logo na fotkách, faktura, GDPR, velké akce)
+    locations.tsx        – id="lokality", kde působíme – 16 měst do ~1h od Olomouce
     gallery.tsx          – id="gallery", dynamická galerie z Cloudinary API
     how-it-works.tsx     – id="process", 3 kroky
     video-section.tsx    – videa z Cloudinary API s vlastními náhledy (bez filename)
@@ -64,9 +66,15 @@ components/
 
 ## Anchor navigace
 - `#features` → Proč my
+- `#firemni-vecirky` → Pro firmy (není v nav)
 - `#gallery` → Galerie
 - `#process` → Jak to funguje
+- `#lokality` → Kde působíme (není v nav)
 - `#contact` → Kontakt (Rezervovat tlačítko)
+
+## SEO úpravy 7/2026
+- H1 v hero: „FOTOMATIK" + „Fotokoutek na svatby a firemní večírky" (obojí v jednom h1)
+- Duplicitní id sekcí odstraněny z page.tsx (id jsou uvnitř komponent)
 
 ## SEO
 - JSON-LD LocalBusiness v layout.tsx (adresa Olomouc, geo souřadnice, areaServed)
