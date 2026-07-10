@@ -12,10 +12,15 @@ interface CloudinaryImage {
   display_name?: string
 }
 
+const INITIAL_COUNT = 8
+
 export function GallerySection() {
   const [images, setImages] = useState<CloudinaryImage[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
+  const [showAll, setShowAll] = useState(false)
+
+  const visibleImages = showAll ? images : images.slice(0, INITIAL_COUNT)
 
   useEffect(() => {
     fetch("/api/gallery")
@@ -72,26 +77,39 @@ export function GallerySection() {
         ) : images.length === 0 ? (
           <p className="text-center text-muted-foreground py-16">Žádné fotky k zobrazení.</p>
         ) : (
-          <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 max-w-6xl mx-auto">
-            {images.map((image, index) => (
-              <div key={image.public_id} className="break-inside-avoid mb-4">
+          <>
+            <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 max-w-6xl mx-auto">
+              {visibleImages.map((image, index) => (
+                <div key={image.public_id} className="break-inside-avoid mb-4">
+                  <button
+                    onClick={() => setSelectedIndex(index)}
+                    className="w-full overflow-hidden rounded-2xl group cursor-pointer"
+                    aria-label={`Fotografie ${index + 1}`}
+                  >
+                    <Image
+                      src={image.secure_url}
+                      alt={image.display_name || `Fotomatik fotokoutek ${index + 1}`}
+                      width={image.width || 600}
+                      height={image.height || 450}
+                      className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading={index < 6 ? "eager" : "lazy"}
+                    />
+                  </button>
+                </div>
+              ))}
+            </div>
+
+            {!showAll && images.length > INITIAL_COUNT && (
+              <div className="text-center mt-10">
                 <button
-                  onClick={() => setSelectedIndex(index)}
-                  className="w-full overflow-hidden rounded-2xl group cursor-pointer"
-                  aria-label={`Fotografie ${index + 1}`}
+                  onClick={() => setShowAll(true)}
+                  className="inline-block px-10 py-4 border-2 border-foreground/30 rounded-full text-foreground font-medium tracking-widest uppercase text-sm hover:border-primary hover:text-primary transition-colors"
                 >
-                  <Image
-                    src={image.secure_url}
-                    alt={image.display_name || `Fotomatik fotokoutek ${index + 1}`}
-                    width={image.width || 600}
-                    height={image.height || 450}
-                    className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading={index < 6 ? "eager" : "lazy"}
-                  />
+                  Ukázat více fotek
                 </button>
               </div>
-            ))}
-          </div>
+            )}
+          </>
         )}
       </div>
 
