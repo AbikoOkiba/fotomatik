@@ -4,6 +4,7 @@ import { FeaturesSection } from "@/components/sections/features"
 import { CorporateSection } from "@/components/sections/corporate"
 import { VideoSection } from "@/components/sections/video-section"
 import { GallerySection } from "@/components/sections/gallery"
+import { ReferencesSection } from "@/components/sections/references"
 import { HowItWorksSection } from "@/components/sections/how-it-works"
 import { LocationsSection } from "@/components/sections/locations"
 import { ContactSection } from "@/components/sections/contact"
@@ -23,6 +24,8 @@ export default function Home() {
       <VideoSection />
 
       <GallerySection />
+
+      <ReferencesSection />
 
       <HowItWorksSection />
 

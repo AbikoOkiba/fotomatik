@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { Phone, Mail, MapPin, Send, CheckCircle } from "lucide-react"
+import { Phone, Mail, MapPin, Tag, Send, CheckCircle } from "lucide-react"
 import Image from "next/image"
 
 export function ContactSection() {
@@ -102,6 +102,16 @@ export function ContactSection() {
                   <p className="text-lg font-medium text-foreground">Olomoucký kraj a okolí</p>
                   <p className="text-sm text-muted-foreground">Olomouc, Prostějov, Šumperk, Ostrava, Brno a celá Morava</p>
                   <p className="text-sm text-muted-foreground">Po domluvě za vámi rádi přijedeme kamkoliv.</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center flex-shrink-0">
+                  <Tag className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground mb-1">Cena</p>
+                  <p className="text-lg font-medium text-foreground">Svatby a oslavy od 8 900 Kč</p>
+                  <p className="text-lg font-medium text-foreground">Firemní večírky od 11 900 Kč</p>
                 </div>
               </div>
             </div>

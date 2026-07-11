@@ -34,6 +34,7 @@ components/
     features.tsx         – id="features", 4 karty výhod
     corporate.tsx        – id="firemni-vecirky", B2B sekce (logo na fotkách, faktura, GDPR, velké akce)
     locations.tsx        – id="lokality", kde působíme – 16 měst do ~1h od Olomouce
+    references.tsx       – id="reference", 9 citátů klientů (5 firem, 2× 50iny, 2× svatba)
     gallery.tsx          – id="gallery", dynamická galerie z Cloudinary API
     how-it-works.tsx     – id="process", 3 kroky
     video-section.tsx    – videa z Cloudinary API s vlastními náhledy (bez filename)
@@ -75,6 +76,9 @@ components/
 ## SEO úpravy 7/2026
 - H1 v hero: „FOTOMATIK" + „Fotokoutek na svatby a firemní večírky" (obojí v jednom h1)
 - Duplicitní id sekcí odstraněny z page.tsx (id jsou uvnitř komponent)
+- Galerie: prvních 8 fotek + tlačítko „Ukázat více fotek"
+- Ceny na webu: svatby/oslavy od 8 900 Kč, firemní od 11 900 Kč (v corporate.tsx a contact.tsx)
+- Pořadí sekcí: hero → features → corporate → video → gallery → references → process → locations → contact
 
 ## SEO
 - JSON-LD LocalBusiness v layout.tsx (adresa Olomouc, geo souřadnice, areaServed)

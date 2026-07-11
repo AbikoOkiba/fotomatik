@@ -69,6 +69,9 @@ export function CorporateSection() {
         </div>
 
         <div className="text-center">
+          <p className="text-lg text-muted-foreground mb-6">
+            Firemní akce <span className="font-semibold text-foreground">od 11 900 Kč</span>
+          </p>
           <a href="#contact">
             <Button
               size="lg"
